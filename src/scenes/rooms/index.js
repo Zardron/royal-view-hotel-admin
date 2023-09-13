@@ -28,13 +28,13 @@ const Rooms = () => {
     { field: "roomName", headerName: "Room Name", flex: 1 },
     {
       field: "roomSize",
-      headerName: "Room Size",
+      headerName: "Room Size (m²)",
       flex: 1,
       cellClassName: "name-column--cell",
     },
     {
       field: "roomPrice",
-      headerName: "Room Price",
+      headerName: "Room Price (AED)",
       type: "number",
       headerAlign: "left",
       align: "left",
