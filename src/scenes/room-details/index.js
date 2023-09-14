@@ -19,6 +19,8 @@ import axios from "axios";
 import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import BounceLoader from "react-spinners/BounceLoader";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -79,6 +81,276 @@ const RoomDetails = () => {
       setLoading(false);
     }
   };
+
+  const localUrl = "http://localhost:5000/api/room/";
+  // const prodUrl = "https://rvh-backend.vercel.app/api/room/room-details";
+
+  // Adding Room Details
+  const [details, setDetails] = useState("");
+
+  const handleRoomDetails = () => {
+    if (details === "") {
+      toast.error("Please Add Overview", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } else {
+      axios
+        .put(`${localUrl}/details/${id}`, {
+          name: details,
+        })
+        .then((result) => {
+          if (result) {
+            toast.success("Overview Successfully Added", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+            setData(result.data);
+          }
+        });
+    }
+  };
+
+  // Adding Room Size
+  const [roomsize, setRoomSize] = useState("");
+
+  const handleRoomSize = () => {
+    if (roomsize === "") {
+      toast.error("Please Add Room Size", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } else {
+      axios
+        .put(`${localUrl}/room-size/${id}`, {
+          name: roomsize,
+        })
+        .then((result) => {
+          if (result) {
+            toast.success("Room Size Successfully Added", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+            setData(result.data);
+          }
+        });
+    }
+  };
+
+  // Adding Room Description
+  const [roomDescription, setRoomDescription] = useState("");
+
+  const handleRoomDescription = () => {
+    if (roomDescription === "") {
+      toast.error("Please Add Description", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } else {
+      axios
+        .put(`${localUrl}/description/${id}`, {
+          data: roomDescription,
+        })
+        .then((result) => {
+          if (result) {
+            toast.success("Description Successfully Added", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+            setData(result.data);
+          }
+        });
+    }
+  };
+
+  // Adding Room View
+  const [roomView, setRoomView] = useState("");
+
+  const handleRoomView = () => {
+    if (roomView === "") {
+      toast.error("Please Add View", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } else {
+      axios
+        .put(`${localUrl}/view/${id}`, {
+          data: roomView,
+        })
+        .then((result) => {
+          if (result) {
+            toast.success("View Successfully Added", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+            setData(result.data);
+          }
+        });
+    }
+  };
+
+  // Adding Room in Bathroom
+  const [inbathroom, setInBathroom] = useState("");
+
+  const handleInBathroom = () => {
+    if (inbathroom === "") {
+      toast.error("Please Add in Bathroom", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } else {
+      axios
+        .put(`${localUrl}/bathroom/${id}`, {
+          name: inbathroom,
+        })
+        .then((result) => {
+          if (result) {
+            toast.success("In Bathroom Successfully Added", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+            setData(result.data);
+          }
+        });
+    }
+  };
+
+  // Adding Room Facilities
+  const [roomFacilities, setRoomFacilities] = useState("");
+
+  const handleFacilities = () => {
+    if (roomFacilities === "") {
+      toast.error("Please Add Facilities", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } else {
+      axios
+        .put(`${localUrl}/facilities/${id}`, {
+          name: roomFacilities,
+        })
+        .then((result) => {
+          if (result) {
+            toast.success("Facilities Successfully Added", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+            setData(result.data);
+          }
+        });
+    }
+  };
+
+  // Update Room Price
+  const [roomprice, setRoomPrice] = useState("");
+
+  const handleRoomPrice = () => {
+    if (roomprice === "") {
+      toast.error("Please Add Room Price", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    } else {
+      axios
+        .put(`${localUrl}/room-price/${id}`, {
+          name: roomprice,
+        })
+        .then((result) => {
+          if (result) {
+            toast.success("Room Price Successfully Updated", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "dark",
+            });
+            setData(result.data);
+          }
+        });
+    }
+  };
+
   return (
     <Box m="10px">
       <Header title="ROOM DETAILS" subtitle="Manage your Room Details" />
@@ -147,6 +419,27 @@ const RoomDetails = () => {
                 paddingBottom={2}
               >
                 {data?.roomName}
+              </Typography>
+
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                style={{
+                  display: "flex",
+                  flex: "1",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                Room Price (Per Night):
+                <Typography
+                  gutterBottom
+                  variant="h6"
+                  style={{ margin: "0px", marginLeft: "10px" }}
+                >
+                  {data?.roomPrice}.00 AED
+                </Typography>
               </Typography>
 
               <Typography gutterBottom variant="h5" component="div">
@@ -294,6 +587,8 @@ const RoomDetails = () => {
                 }}
                 color="success"
                 focused
+                value={details}
+                onChange={(e) => setDetails(e.target.value)}
               />
 
               <Button
@@ -304,7 +599,7 @@ const RoomDetails = () => {
                   width: "50%",
                   height: "53px",
                 }}
-                onClick={() => UploadMultipleFiles()}
+                onClick={() => handleRoomDetails()}
               >
                 Submit Overview
               </Button>
@@ -332,6 +627,8 @@ const RoomDetails = () => {
                 }}
                 color="success"
                 focused
+                value={roomsize}
+                onChange={(e) => setRoomSize(e.target.value)}
               />
 
               <Button
@@ -342,7 +639,7 @@ const RoomDetails = () => {
                   width: "50%",
                   height: "53px",
                 }}
-                onClick={() => UploadMultipleFiles()}
+                onClick={(e) => handleRoomSize(e.target.value)}
               >
                 Submit Room Size
               </Button>
@@ -370,6 +667,8 @@ const RoomDetails = () => {
                 }}
                 color="success"
                 focused
+                value={roomDescription}
+                onChange={(e) => setRoomDescription(e.target.value)}
               />
 
               <Button
@@ -380,7 +679,7 @@ const RoomDetails = () => {
                   width: "50%",
                   height: "53px",
                 }}
-                onClick={() => UploadMultipleFiles()}
+                onClick={(e) => handleRoomDescription(e.target.value)}
               >
                 Submit Description
               </Button>
@@ -408,6 +707,8 @@ const RoomDetails = () => {
                 }}
                 color="success"
                 focused
+                value={roomView}
+                onChange={(e) => setRoomView(e.target.value)}
               />
 
               <Button
@@ -418,9 +719,49 @@ const RoomDetails = () => {
                   width: "50%",
                   height: "53px",
                 }}
-                onClick={() => UploadMultipleFiles()}
+                onClick={(e) => handleRoomView(e.target.value)}
               >
                 Submit View
+              </Button>
+            </Box>
+
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                border: "1px solid white",
+                paddingHorizontal: "4px",
+                paddingTop: "20px",
+                paddingBottom: "20px",
+                paddingLeft: "10px",
+                paddingRight: "10px",
+                marginTop: "20px",
+                gap: "10px",
+              }}
+            >
+              <TextField
+                label="Add in Bathroom"
+                style={{
+                  width: "50%",
+                }}
+                color="success"
+                focused
+                value={inbathroom}
+                onChange={(e) => setInBathroom(e.target.value)}
+              />
+
+              <Button
+                type="submit"
+                style={{
+                  backgroundColor: "#262b32",
+                  color: "white",
+                  width: "50%",
+                  height: "53px",
+                }}
+                onClick={(e) => handleInBathroom(e.target.value)}
+              >
+                Submit Bathroom
               </Button>
             </Box>
 
@@ -446,6 +787,8 @@ const RoomDetails = () => {
                 }}
                 color="success"
                 focused
+                value={roomFacilities}
+                onChange={(e) => setRoomFacilities(e.target.value)}
               />
 
               <Button
@@ -456,7 +799,7 @@ const RoomDetails = () => {
                   width: "50%",
                   height: "53px",
                 }}
-                onClick={() => UploadMultipleFiles()}
+                onClick={(e) => handleFacilities(e.target.value)}
               >
                 Submit Facilities
               </Button>
@@ -478,12 +821,14 @@ const RoomDetails = () => {
               }}
             >
               <TextField
-                label="Update Price"
+                label="Update Price (Per Night in AED)"
                 style={{
                   width: "50%",
                 }}
                 color="success"
                 focused
+                value={roomprice}
+                onChange={(e) => setRoomPrice(e.target.value)}
               />
 
               <Button
@@ -494,7 +839,7 @@ const RoomDetails = () => {
                   width: "50%",
                   height: "53px",
                 }}
-                onClick={() => UploadMultipleFiles()}
+                onClick={(e) => handleRoomPrice(e.target.value)}
               >
                 Submit
               </Button>
@@ -502,6 +847,7 @@ const RoomDetails = () => {
           </Box>
         </Grid>
       </Grid>
+      <ToastContainer />
     </Box>
   );
 };
