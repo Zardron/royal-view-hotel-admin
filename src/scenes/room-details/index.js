@@ -41,7 +41,7 @@ const RoomDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/room/room-details/${id}`)
+      .get(`https://rvh-backend.vercel.app/api/room/room-details/${id}`)
       .then((result) => {
         setData(result.data);
       });
@@ -49,7 +49,7 @@ const RoomDetails = () => {
 
   const refreshData = () => {
     axios
-      .get(`http://localhost:5000/api/room/room-details/${id}`)
+      .get(`https://rvh-backend.vercel.app/api/room/room-details/${id}`)
       .then((result) => {
         setData(result.data);
       });
@@ -70,7 +70,7 @@ const RoomDetails = () => {
     setLoading(true);
 
     const uploadImg = await axios.put(
-      `http://localhost:5000/api/room/upload/${id}`,
+      `https://rvh-backend.vercel.app/api/room/upload/${id}`,
       formData
     );
 
