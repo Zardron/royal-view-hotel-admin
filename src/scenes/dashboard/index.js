@@ -14,17 +14,28 @@ import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { HouseOutlined, PeopleAltOutlined } from "@mui/icons-material";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [bookingData, setBookingData] = useState([]);
+  const [roomData, setRoomData] = useState([]);
 
   useEffect(() => {
     axios
       .get("https://rvh-backend.vercel.app/api/room/all-bookings")
       .then((result) => {
         setBookingData(result?.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("https://rvh-backend.vercel.app/api/room")
+      .then((result) => {
+        setRoomData(result?.data);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -64,38 +75,29 @@ const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
-          justifyContent="center"
+          justifyContent="space-between"
         >
-          <StatBox
-            title={bookingData.length}
-            subtitle="Total Rooms"
-            progress="0.75"
-            increase="+14%"
-            icon={
-              <EmailIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title={bookingData.length}
-            subtitle="Total Confirmed Bookings"
-            progress="2"
-            increase="2%"
-            icon={
-              <PointOfSaleIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
+          <Box display="flex" alignItems="center">
+            <HouseOutlined
+              sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+            />
+            <Typography
+              color={colors.greenAccent[600]}
+              variant="h4"
+              fontWeight="600"
+            >
+              Total Rooms:
+            </Typography>
+          </Box>
+          <Box>
+            <Typography
+              color={colors.greenAccent[400]}
+              variant="h4"
+              fontWeight="600"
+            >
+              {roomData?.length}
+            </Typography>
+          </Box>
         </Box>
 
         <Box
@@ -103,19 +105,29 @@ const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
-          justifyContent="center"
+          justifyContent="space-between"
         >
-          <StatBox
-            title={0}
-            subtitle="Total Cancelled Bookings"
-            progress="2"
-            increase="2%"
-            icon={
-              <PointOfSaleIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
+          <Box display="flex" alignItems="center">
+            <HouseOutlined
+              sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+            />
+            <Typography
+              color={colors.greenAccent[600]}
+              variant="h4"
+              fontWeight="600"
+            >
+              Total Confirmed Bookings:
+            </Typography>
+          </Box>
+          <Box>
+            <Typography
+              color={colors.greenAccent[400]}
+              variant="h4"
+              fontWeight="600"
+            >
+              {bookingData?.length}
+            </Typography>
+          </Box>
         </Box>
 
         <Box
@@ -123,23 +135,63 @@ const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
-          justifyContent="center"
+          justifyContent="space-between"
         >
-          <StatBox
-            title="32,441"
-            subtitle="Total Employees"
-            progress="0.30"
-            increase="+5%"
-            icon={
-              <PersonAddIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
+          <Box display="flex" alignItems="center">
+            <HouseOutlined
+              sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+            />
+            <Typography
+              color={colors.greenAccent[600]}
+              variant="h4"
+              fontWeight="600"
+            >
+              Total Cancelled Bookings:
+            </Typography>
+          </Box>
+          <Box>
+            <Typography
+              color={colors.greenAccent[400]}
+              variant="h4"
+              fontWeight="600"
+            >
+              0
+            </Typography>
+          </Box>
+        </Box>
+
+        <Box
+          gridColumn="span 3"
+          backgroundColor={colors.primary[400]}
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Box display="flex" alignItems="center">
+            <PeopleAltOutlined
+              sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+            />
+            <Typography
+              color={colors.greenAccent[600]}
+              variant="h4"
+              fontWeight="600"
+            >
+              Total Employees:
+            </Typography>
+          </Box>
+          <Box>
+            <Typography
+              color={colors.greenAccent[400]}
+              variant="h4"
+              fontWeight="600"
+            >
+              0
+            </Typography>
+          </Box>
         </Box>
 
         {/* ROW 2 */}
-        <Box
+        {/* <Box
           gridColumn="span 8"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -178,7 +230,7 @@ const Dashboard = () => {
           <Box height="250px" m="-20px 0 0 0">
             <LineChart isDashboard={true} />
           </Box>
-        </Box>
+        </Box> */}
         <Box
           gridColumn="span 4"
           gridRow="span 2"
@@ -222,13 +274,6 @@ const Dashboard = () => {
                 </Box>
                 <Box color={colors.grey[100]}>
                   {new Date(transaction.createdAt).toLocaleDateString("en-GB")}
-                </Box>
-                <Box
-                  backgroundColor={colors.greenAccent[500]}
-                  p="5px 10px"
-                  borderRadius="4px"
-                >
-                  ${transaction.cost}
                 </Box>
               </Box>
             ))}

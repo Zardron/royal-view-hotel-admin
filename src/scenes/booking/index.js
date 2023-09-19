@@ -73,6 +73,11 @@ const Booking = ({ userData }) => {
       valueGetter: (params) => params?.row?.customerDetails[0]?.fullname,
     },
     {
+      field: "bookingStatus",
+      headerName: "Booking Status",
+      flex: 1,
+    },
+    {
       field: "action",
       headerName: "Action",
       headerAlign: "center",
