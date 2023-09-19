@@ -12,10 +12,22 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [bookingData, setBookingData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("https://rvh-backend.vercel.app/api/room/all-bookings")
+      .then((result) => {
+        setBookingData(result?.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <Box m="20px">
@@ -55,8 +67,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
+            title={bookingData.length}
+            subtitle="Total Rooms"
             progress="0.75"
             increase="+14%"
             icon={
@@ -74,10 +86,10 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
-            progress="0.50"
-            increase="+21%"
+            title={bookingData.length}
+            subtitle="Total Confirmed Bookings"
+            progress="2"
+            increase="2%"
             icon={
               <PointOfSaleIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -85,6 +97,27 @@ const Dashboard = () => {
             }
           />
         </Box>
+
+        <Box
+          gridColumn="span 3"
+          backgroundColor={colors.primary[400]}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <StatBox
+            title={0}
+            subtitle="Total Cancelled Bookings"
+            progress="2"
+            increase="2%"
+            icon={
+              <PointOfSaleIcon
+                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+              />
+            }
+          />
+        </Box>
+
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
@@ -94,30 +127,11 @@ const Dashboard = () => {
         >
           <StatBox
             title="32,441"
-            subtitle="New Clients"
+            subtitle="Total Employees"
             progress="0.30"
             increase="+5%"
             icon={
               <PersonAddIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn="span 3"
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="1,325,134"
-            subtitle="Traffic Received"
-            progress="0.80"
-            increase="+43%"
-            icon={
-              <TrafficIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
               />
             }
@@ -143,14 +157,14 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.grey[100]}
               >
-                Revenue Generated
+                Total Revenue Generated (Confirmed Bookings) 2023
               </Typography>
               <Typography
                 variant="h3"
                 fontWeight="bold"
                 color={colors.greenAccent[500]}
               >
-                $59,342.32
+                د.إ 59,342.32
               </Typography>
             </Box>
             <Box>
@@ -180,44 +194,48 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
+              Recent Bookings
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
-            <Box
-              key={`${transaction.txId}-${i}`}
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              borderBottom={`4px solid ${colors.primary[500]}`}
-              p="15px"
-            >
-              <Box>
-                <Typography
-                  color={colors.greenAccent[500]}
-                  variant="h5"
-                  fontWeight="600"
-                >
-                  {transaction.txId}
-                </Typography>
-                <Typography color={colors.grey[100]}>
-                  {transaction.user}
-                </Typography>
-              </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+          {bookingData
+            ?.sort((a, b) => (b.createdAt > a.createdAt ? 1 : -1))
+            .map((transaction, i) => (
               <Box
-                backgroundColor={colors.greenAccent[500]}
-                p="5px 10px"
-                borderRadius="4px"
+                key={`${i}`}
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                borderBottom={`4px solid ${colors.primary[500]}`}
+                p="15px"
               >
-                ${transaction.cost}
+                <Box style={{ width: "50%" }}>
+                  <Typography
+                    color={colors.greenAccent[500]}
+                    variant="h5"
+                    fontWeight="600"
+                  >
+                    {transaction?.bookingRef}
+                  </Typography>
+                  <Typography color={colors.grey[100]}>
+                    {transaction?.customerDetails[0]?.fullname}
+                  </Typography>
+                </Box>
+                <Box color={colors.grey[100]}>
+                  {new Date(transaction.createdAt).toLocaleDateString("en-GB")}
+                </Box>
+                <Box
+                  backgroundColor={colors.greenAccent[500]}
+                  p="5px 10px"
+                  borderRadius="4px"
+                >
+                  ${transaction.cost}
+                </Box>
               </Box>
-            </Box>
-          ))}
+            ))}
         </Box>
 
         {/* ROW 3 */}
-        <Box
+        {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -275,7 +293,7 @@ const Dashboard = () => {
           <Box height="200px">
             <GeographyChart isDashboard={true} />
           </Box>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

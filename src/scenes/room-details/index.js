@@ -1,5 +1,4 @@
 import {
-  Badge,
   Box,
   Button,
   Card,
@@ -82,8 +81,8 @@ const RoomDetails = () => {
     }
   };
 
-  const localUrl = "http://localhost:5000/api/room/";
-  // const prodUrl = "https://rvh-backend.vercel.app/api/room/room-details";
+  // const localUrl = "http://localhost:5000/api/room/";
+  const prodUrl = "https://rvh-backend.vercel.app/api/room/";
 
   // Adding Room Details
   const [details, setDetails] = useState("");
@@ -102,7 +101,7 @@ const RoomDetails = () => {
       });
     } else {
       axios
-        .put(`${localUrl}/details/${id}`, {
+        .put(`${prodUrl}/details/${id}`, {
           name: details,
         })
         .then((result) => {
@@ -140,7 +139,7 @@ const RoomDetails = () => {
       });
     } else {
       axios
-        .put(`${localUrl}/room-size/${id}`, {
+        .put(`${prodUrl}/room-size/${id}`, {
           name: roomsize,
         })
         .then((result) => {
@@ -178,7 +177,7 @@ const RoomDetails = () => {
       });
     } else {
       axios
-        .put(`${localUrl}/description/${id}`, {
+        .put(`${prodUrl}/description/${id}`, {
           data: roomDescription,
         })
         .then((result) => {
@@ -216,7 +215,7 @@ const RoomDetails = () => {
       });
     } else {
       axios
-        .put(`${localUrl}/view/${id}`, {
+        .put(`${prodUrl}/view/${id}`, {
           data: roomView,
         })
         .then((result) => {
@@ -254,7 +253,7 @@ const RoomDetails = () => {
       });
     } else {
       axios
-        .put(`${localUrl}/bathroom/${id}`, {
+        .put(`${prodUrl}/bathroom/${id}`, {
           name: inbathroom,
         })
         .then((result) => {
@@ -292,7 +291,7 @@ const RoomDetails = () => {
       });
     } else {
       axios
-        .put(`${localUrl}/facilities/${id}`, {
+        .put(`${prodUrl}/facilities/${id}`, {
           name: roomFacilities,
         })
         .then((result) => {
@@ -330,7 +329,7 @@ const RoomDetails = () => {
       });
     } else {
       axios
-        .put(`${localUrl}/room-price/${id}`, {
+        .put(`${prodUrl}/room-price/${id}`, {
           name: roomprice,
         })
         .then((result) => {

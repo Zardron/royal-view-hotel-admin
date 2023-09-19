@@ -16,6 +16,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import { LogoutOutlined } from "@mui/icons-material";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -35,11 +36,19 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebar = () => {
+const Sidebar = ({ navigate, userData }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+
+  const handleLogout = ({ userData }) => {
+    localStorage.removeItem("token");
+    navigate("/");
+    window.location.reload();
+  };
+
+  console.log(userData);
 
   return (
     <Box
@@ -119,7 +128,7 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="/"
+              to="/dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -132,13 +141,16 @@ const Sidebar = () => {
             >
               Data
             </Typography>
-            <Item
-              title="Manage Team"
-              to="/team"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            {userData?.userData?.roles === "manager" && (
+              <Item
+                title="Manage Team"
+                to="/team"
+                icon={<PeopleOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            )}
+
             <Item
               title="Rooms"
               to="/rooms"
@@ -148,18 +160,29 @@ const Sidebar = () => {
             />
             <Item
               title="Bookings"
-              to="/invoices"
+              to="/booking"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
-            {/* 
             <Typography
               variant="h6"
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                cursor: "pointer",
+              }}
+              onClick={handleLogout}
             >
+              <LogoutOutlined style={{ marginRight: "10px" }} /> Logout
+            </Typography>
+
+            {/* 
+          
            Pages
             </Typography>
             <Item
