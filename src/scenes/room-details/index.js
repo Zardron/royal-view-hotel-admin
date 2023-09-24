@@ -38,8 +38,6 @@ const RoomDetails = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
 
-  console.log(loading);
-
   useEffect(() => {
     axios
       .get(`https://rvh-backend.vercel.app/api/room/room-details/${id}`)
