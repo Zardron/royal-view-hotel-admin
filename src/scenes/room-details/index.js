@@ -148,7 +148,7 @@ const RoomDetails = () => {
   // };
 
   // const localUrl = "http://localhost:5000/api/room/";
-  const prodUrl = "https://rvh-backend.vercel.app/api/room/";
+  const prodUrl = "https://rvh-backend.vercel.app/api/room";
 
   // Adding Room Details
   const [details, setDetails] = useState("");
