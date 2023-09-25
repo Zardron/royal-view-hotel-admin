@@ -57,29 +57,95 @@ const RoomDetails = () => {
   };
 
   const [multipleFiles, setMultipleFiles] = useState("");
+  const [photos, setPhotos] = useState("");
+  const [imgUrl, setImageUrl] = useState("");
 
-  const MultipleFileChange = (e) => {
-    setMultipleFiles(e.target.files);
+  const convertToBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      if (file) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+          resolve(fileReader.result);
+        };
+        fileReader.onerror = (error) => {
+          reject(error);
+        };
+      }
+    });
   };
 
-  const UploadMultipleFiles = async () => {
-    const formData = new FormData();
-    for (let i = 0; i < multipleFiles.length; i++) {
-      formData.append("images", multipleFiles[i]);
-    }
+  const handleFileUpload = async (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    const base64 = await convertToBase64(file);
 
+    setPhotos(base64);
+  };
+
+  // const MultipleFileChange = (e) => {
+  //   setMultipleFiles(e.target.files);
+  // };
+
+  const UploadMultipleFiles = () => {
     setLoading(true);
 
-    const uploadImg = await axios.put(
-      `https://rvh-backend.vercel.app/api/room/upload/${id}`,
-      formData
-    );
-
-    if (uploadImg) {
-      refreshData();
-      setLoading(false);
-    }
+    axios
+      .put(`https://rvh-backend.vercel.app/api/room/upload/${id}`, {
+        photos: imgUrl,
+      })
+      .then((success) => {
+        if (success) {
+          setImageUrl("");
+          refreshData();
+          setLoading(false);
+          toast.success("Image Successfully Added", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
+      })
+      .catch((err) => {
+        setImageUrl("");
+        toast.error(err.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        refreshData();
+        setLoading(false);
+      });
   };
+
+  // const UploadMultipleFiles = async () => {
+  //   const formData = new FormData();
+  //   for (let i = 0; i < multipleFiles.length; i++) {
+  //     formData.append("images", multipleFiles[i]);
+  //   }
+
+  //   setLoading(true);
+
+  //   const uploadImg = await axios.put(
+  //     `http://localhost:5000/api/room/upload/${id}`,
+  //     formData
+  //   );
+
+  //   if (uploadImg) {
+  //     refreshData();
+  //     setLoading(false);
+  //   }
+  // };
 
   // const localUrl = "http://localhost:5000/api/room/";
   const prodUrl = "https://rvh-backend.vercel.app/api/room/";
@@ -540,15 +606,15 @@ const RoomDetails = () => {
                 gap: "10px",
               }}
             >
-              <input
-                type="file"
-                onChange={(e) => MultipleFileChange(e)}
-                className="form-control"
-                label="upload images"
-                multiple
+              <TextField
+                label="Add Image Url"
                 style={{
                   width: "50%",
                 }}
+                color="success"
+                focused
+                value={imgUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
               />
 
               <Button
@@ -557,6 +623,7 @@ const RoomDetails = () => {
                   backgroundColor: "#262b32",
                   color: "white",
                   width: "50%",
+                  height: "53px",
                 }}
                 onClick={() => UploadMultipleFiles()}
               >
