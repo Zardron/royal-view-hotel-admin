@@ -48,8 +48,6 @@ const Sidebar = ({ navigate, userData }) => {
     window.location.reload();
   };
 
-  console.log(userData);
-
   return (
     <Box
       sx={{
@@ -119,7 +117,9 @@ const Sidebar = ({ navigate, userData }) => {
                   Royal View Hotel
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
+                  {userData?.userData?.roles === "manager"
+                    ? "MANAGER"
+                    : "RECEPTIONIST"}
                 </Typography>
               </Box>
             </Box>
@@ -141,7 +141,7 @@ const Sidebar = ({ navigate, userData }) => {
             >
               Data
             </Typography>
-            {userData?.userData?.roles === "manager" && (
+            {/* {userData?.userData?.roles === "manager" && (
               <Item
                 title="Manage Team"
                 to="/team"
@@ -149,7 +149,7 @@ const Sidebar = ({ navigate, userData }) => {
                 selected={selected}
                 setSelected={setSelected}
               />
-            )}
+            )} */}
 
             <Item
               title="Rooms"
