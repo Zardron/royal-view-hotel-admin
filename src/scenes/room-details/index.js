@@ -6,6 +6,8 @@ import {
   Grid,
   ImageList,
   ImageListItem,
+  Stack,
+  Switch,
   TextField,
   Typography,
   useTheme,
@@ -20,6 +22,50 @@ import Paper from "@mui/material/Paper";
 import BounceLoader from "react-spinners/BounceLoader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+const AntSwitch = styled(Switch)(({ theme }) => ({
+  width: 28,
+  height: 16,
+  padding: 0,
+  display: "flex",
+  "&:active": {
+    "& .MuiSwitch-thumb": {
+      width: 15,
+    },
+    "& .MuiSwitch-switchBase.Mui-checked": {
+      transform: "translateX(9px)",
+    },
+  },
+  "& .MuiSwitch-switchBase": {
+    padding: 2,
+    "&.Mui-checked": {
+      transform: "translateX(12px)",
+      color: "#fff",
+      "& + .MuiSwitch-track": {
+        opacity: 1,
+        backgroundColor: theme.palette.mode === "dark" ? "#177ddc" : "#1890ff",
+      },
+    },
+  },
+  "& .MuiSwitch-thumb": {
+    boxShadow: "0 2px 4px 0 rgb(0 35 11 / 20%)",
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    transition: theme.transitions.create(["width"], {
+      duration: 200,
+    }),
+  },
+  "& .MuiSwitch-track": {
+    borderRadius: 16 / 2,
+    opacity: 1,
+    backgroundColor:
+      theme.palette.mode === "dark"
+        ? "rgba(255,255,255,.35)"
+        : "rgba(0,0,0,.25)",
+    boxSizing: "border-box",
+  },
+}));
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -37,8 +83,6 @@ const RoomDetails = () => {
 
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
-
-  console.log(loading);
 
   useEffect(() => {
     axios
@@ -137,7 +181,7 @@ const RoomDetails = () => {
   //   setLoading(true);
 
   //   const uploadImg = await axios.put(
-  //     `http://localhost:5000/api/room/upload/${id}`,
+  //     `https://rvh-backend.vercel.app/api/room/upload/${id}`,
   //     formData
   //   );
 
@@ -147,7 +191,7 @@ const RoomDetails = () => {
   //   }
   // };
 
-  // const localUrl = "http://localhost:5000/api/room/";
+  // const localUrl = "https://rvh-backend.vercel.app/api/room/";
   const prodUrl = "https://rvh-backend.vercel.app/api/room";
 
   // Adding Room Details
@@ -416,6 +460,131 @@ const RoomDetails = () => {
     }
   };
 
+  // Delete Images
+  const handleDeleteImg = (url) => {
+    axios
+      .put(`https://rvh-backend.vercel.app/api/room/delete-image/${id}`, {
+        url: url,
+      })
+      .then((success) => {
+        toast.success(success.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        refreshData();
+      });
+  };
+
+  // delete overview
+  const handleDeleteOverview = (name) => {
+    axios
+      .put(`https://rvh-backend.vercel.app/api/room/delete-overview/${id}`, {
+        name: name,
+      })
+      .then((success) => {
+        toast.success(success.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        refreshData();
+      });
+  };
+
+  // delete view
+  const handleDeleteView = (name) => {
+    axios
+      .put(`https://rvh-backend.vercel.app/api/room/delete-view/${id}`, {
+        name: name,
+      })
+      .then((success) => {
+        toast.success(success.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        refreshData();
+      });
+  };
+
+  // delete bathroom
+  const handleDeleteBathroom = (name) => {
+    axios
+      .put(`https://rvh-backend.vercel.app/api/room/delete-bathroom/${id}`, {
+        name: name,
+      })
+      .then((success) => {
+        toast.success(success.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        refreshData();
+      });
+  };
+
+  // delete bathroom
+  const handleDeleteFacilities = (name) => {
+    axios
+      .put(`https://rvh-backend.vercel.app/api/room/delete-facilities/${id}`, {
+        name: name,
+      })
+      .then((success) => {
+        toast.success(success.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        refreshData();
+      });
+  };
+
+  const handleAvailability = (availability) => {
+    axios
+      .put(`https://rvh-backend.vercel.app/api/room/room-availability/${id}`, {
+        availability: availability,
+      })
+      .then((success) => {
+        toast.success(success.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        refreshData();
+      });
+  };
+
   return (
     <Box m="10px">
       <Header title="ROOM DETAILS" subtitle="Manage your Room Details" />
@@ -464,14 +633,30 @@ const RoomDetails = () => {
                 }}
               >
                 {data?.images?.map((item) => (
-                  <ImageListItem key={item.img}>
-                    <img
-                      src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
-                      srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                      loading="lazy"
-                      alt="images"
-                    />
-                  </ImageListItem>
+                  <>
+                    <ImageListItem key={item.img}>
+                      <img
+                        src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
+                        srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                        loading="lazy"
+                        alt="images"
+                      />
+                      <button
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          right: 0,
+                          fontWeight: "bold",
+                          backgroundColor: "red",
+                          color: "white",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleDeleteImg(item.url)}
+                      >
+                        x
+                      </button>
+                    </ImageListItem>
+                  </>
                 ))}
               </ImageList>
             )}
@@ -482,8 +667,46 @@ const RoomDetails = () => {
                 variant="h5"
                 component="div"
                 paddingBottom={2}
+                alignItems="center"
+                display={"flex"}
+                gap={2}
               >
                 {data?.roomName}
+              </Typography>
+
+              <Typography
+                gutterBottom
+                variant="h5"
+                component="div"
+                paddingBottom={1}
+                alignItems="center"
+                display={"flex"}
+                gap={2}
+              >
+                Room Availability:
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Typography
+                    backgroundColor={`${data?.isAvailable ? "green" : "gray"}`}
+                    paddingLeft={1}
+                    paddingRight={1}
+                    borderRadius={10}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleAvailability(true)}
+                  >
+                    Available
+                  </Typography>
+
+                  <Typography
+                    backgroundColor={`${data?.isAvailable ? "gray" : "red"}`}
+                    paddingLeft={1}
+                    paddingRight={1}
+                    borderRadius={10}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleAvailability(false)}
+                  >
+                    Not Available
+                  </Typography>
+                </Stack>
               </Typography>
 
               <Typography
@@ -517,8 +740,28 @@ const RoomDetails = () => {
                 paddingBottom={2}
               >
                 {data?.roomDetails?.map((item) => (
-                  <Grid item xs={3}>
-                    <Item>{item.name}</Item>
+                  <Grid item xs={4}>
+                    <Item
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      {item.name}{" "}
+                      <button
+                        style={{
+                          fontWeight: "bold",
+                          backgroundColor: "red",
+                          color: "white",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleDeleteOverview(item.name)}
+                      >
+                        x
+                      </button>
+                    </Item>
                   </Grid>
                 ))}
               </Grid>
@@ -547,8 +790,28 @@ const RoomDetails = () => {
                 paddingBottom={2}
               >
                 {data?.view?.map((item) => (
-                  <Grid item xs={3}>
-                    <Item>{item.name}</Item>
+                  <Grid item xs={4}>
+                    <Item
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      {item.name}{" "}
+                      <button
+                        style={{
+                          fontWeight: "bold",
+                          backgroundColor: "red",
+                          color: "white",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleDeleteView(item.name)}
+                      >
+                        x
+                      </button>
+                    </Item>
                   </Grid>
                 ))}
               </Grid>
@@ -565,7 +828,27 @@ const RoomDetails = () => {
               >
                 {data?.inBathroom?.map((item) => (
                   <Grid item xs={6}>
-                    <Item>{item.name}</Item>
+                    <Item
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      {item.name}{" "}
+                      <button
+                        style={{
+                          fontWeight: "bold",
+                          backgroundColor: "red",
+                          color: "white",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => handleDeleteBathroom(item.name)}
+                      >
+                        x
+                      </button>
+                    </Item>
                   </Grid>
                 ))}
               </Grid>
@@ -583,7 +866,27 @@ const RoomDetails = () => {
                 {data?.facilities?.map((item) => (
                   <>
                     <Grid item xs={6}>
-                      <Item>{item.name}</Item>
+                      <Item
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        {item.name}{" "}
+                        <button
+                          style={{
+                            fontWeight: "bold",
+                            backgroundColor: "red",
+                            color: "white",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => handleDeleteFacilities(item.name)}
+                        >
+                          x
+                        </button>
+                      </Item>
                     </Grid>
                   </>
                 ))}

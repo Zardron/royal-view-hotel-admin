@@ -71,13 +71,13 @@ const Dashboard = () => {
       >
         {/* ROW 1 */}
         <Box
-          gridColumn="span 3"
+          gridColumn="span 4"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="space-between"
         >
-          <Box display="flex" alignItems="center">
+          <Box display="flex" alignItems="center" padding={2}>
             <HouseOutlined
               sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
             />
@@ -94,6 +94,7 @@ const Dashboard = () => {
               color={colors.greenAccent[400]}
               variant="h4"
               fontWeight="600"
+              marginRight={3}
             >
               {roomData?.length}
             </Typography>
@@ -101,13 +102,13 @@ const Dashboard = () => {
         </Box>
 
         <Box
-          gridColumn="span 3"
+          gridColumn="span 4"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="space-between"
         >
-          <Box display="flex" alignItems="center">
+          <Box display="flex" alignItems="center" padding={2}>
             <HouseOutlined
               sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
             />
@@ -124,6 +125,7 @@ const Dashboard = () => {
               color={colors.greenAccent[400]}
               variant="h4"
               fontWeight="600"
+              marginRight={3}
             >
               {bookingData?.length}
             </Typography>
@@ -131,13 +133,13 @@ const Dashboard = () => {
         </Box>
 
         <Box
-          gridColumn="span 3"
+          gridColumn="span 4"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="space-between"
         >
-          <Box display="flex" alignItems="center">
+          <Box display="flex" alignItems="center" padding={2}>
             <HouseOutlined
               sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
             />
@@ -154,20 +156,21 @@ const Dashboard = () => {
               color={colors.greenAccent[400]}
               variant="h4"
               fontWeight="600"
+              marginRight={3}
             >
               0
             </Typography>
           </Box>
         </Box>
 
-        <Box
+        {/* <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
           justifyContent="space-between"
         >
-          <Box display="flex" alignItems="center">
+          <Box display="flex" alignItems="center" padding={2}>
             <PeopleAltOutlined
               sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
             />
@@ -188,7 +191,7 @@ const Dashboard = () => {
               0
             </Typography>
           </Box>
-        </Box>
+        </Box> */}
 
         {/* ROW 2 */}
         {/* <Box
